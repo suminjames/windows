@@ -1,0 +1,62 @@
+.window {
+    width: 740px;
+    height: 270px;
+    background: #efe1e1;
+    position: absolute;
+    margin: 0 auto;
+    left: 300px;
+    top: 62px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.window-bar {
+    padding: 20px;
+    background: black;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+#minimize {
+    display: none;
+    position: absolute;
+    top: 12px;
+    right: 35px;
+    color: white;
+    font-size: 14px;
+}
+
+.fa-times-circle {
+    position: absolute;
+    top: 12px;
+    right: 11px;
+    color: white;
+    font-size: 14px;
+}
+
+.fa-window-maximize {
+    position: absolute;
+    top: 12px;
+    right: 34px;
+    color: white;
+    font-size: 14px;
+    display: block;
+}
+
+.fa-window-minimize {
+    position: absolute;
+    top: 8px;
+    right: 60px;
+    color: white;
+    font-size: 14px;
+}
+
+.window-text {
+    position: absolute;
+    left: 16px;
+    top: 11px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
