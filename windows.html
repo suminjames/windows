@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Window</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="window" id="drag">
+        <div class="window-bar">
+            <span class="window-text" id="dragWindow">Window - Mozilla Firefox</span>
+            <i class="fa fa-window-minimize"></i>
+            <i class="fa fa-compress" id="minimize"></i>
+            <i class="fa fa-window-maximize" id="maximize"></i>
+            <i class="fa fa-times-circle"></i>
+        </div>
+    </div>
+
+    <script>
+        // var maximizeValue = {
+        //     width: '100%',
+        //     height: '100%',
+        //     position: "absolute",
+        //     top: "0",
+        //     right: "0",
+        //     bottom: "0",
+        //     left: "0"
+        // }
+        var maximize = document.querySelector('.fa-window-maximize');
+        maximize.addEventListener('click', function() {
+            var target = this.parentNode;
+            var main = target.parentNode;
+            var style = getComputedStyle(main);
+
+
+            main.style.width = 100 + '%';
+            main.style.height = 100 + '%';
+            main.style.position = "absolute";
+            main.style.top = "0";
+            main.style.right = "0";
+            main.style.bottom = "0";
+            main.style.left = "0";
+            main.style.borderRadius = "none";
+            console.log(main.style);
+
+
+            document.getElementById('minimize').style.display = "block";
+            document.getElementById('maximize').style.display = "none";
+        })
+
+        var minimize = document.querySelector('.fa-compress');
+        minimize.addEventListener('click', function() {
+            var target = this.parentNode;
+            var main = target.parentNode;
+            var style = getComputedStyle(main);
+            main.style.width = "740px";
+            main.style.height = "270px";
+            main.style.position = "absolute";
+            main.style.top = "62px";
+            main.style.right = "0";
+            main.style.bottom = "0";
+            main.style.left = "20px";
+
+            document.getElementById('minimize').style.display = "none";
+            document.getElementById('maximize').style.display = "block";
+        })
+
+        var minuskey = document.querySelector('.fa-window-minimize');
+        minuskey.addEventListener('click', function() {
+            var target = this.parentNode;
+            var main = target.parentNode;
+            var style = getComputedStyle(main);
+            main.style.width = "330px";
+            main.style.height = "24px";
+            main.style.position = "absolute";
+            main.style.top = "599px";
+            document.getElementById('minimize').style.display = "none";
+            document.getElementById('maximize').style.display = "block";
+
+        })
+
+        var close = document.querySelector('.fa-times-circle');
+        close.addEventListener('click', function() {
+            var target = this.parentNode;
+            var main = target.parentNode;
+            console.log(main);
+            main.style.display = "none";
+        })
+
+        dragElement(document.getElementById("drag"));
+
+        function dragElement(elem) {
+            var pos1 = 0,
+                pos2 = 0,
+                pos3 = 0,
+                pos4 = 0;
+            if (document.getElementById(elem.id + "Window")) {
+                document.getElementById(elem.id + "Window").onmousedown = dragMouseDown;
+            } else {
+                elem.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                // console.log(e);
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // console.log(pos3);
+                // console.log(pos4);
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                // console.log(e);
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+
+                console.log(elem.offsetTop)
+                elem.style.top = (elem.offsetTop - pos2) + "px";
+                elem.style.left = (elem.offsetLeft - pos1) + "px";
+                // elem.style.inset = "0px";
+                // console.log(elem.style.top);
+
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+
+    <style>
+        .window {
+            width: 740px;
+            height: 270px;
+            background: #efe1e1;
+            position: absolute;
+            margin: 0 auto;
+            left: 300px;
+            top: 62px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        
+        .window-bar {
+            padding: 20px;
+            background: black;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        
+        #minimize {
+            display: none;
+            position: absolute;
+            top: 12px;
+            right: 35px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .fa-times-circle {
+            position: absolute;
+            top: 12px;
+            right: 11px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .fa-window-maximize {
+            position: absolute;
+            top: 12px;
+            right: 34px;
+            color: white;
+            font-size: 14px;
+            display: block;
+        }
+        
+        .fa-window-minimize {
+            position: absolute;
+            top: 8px;
+            right: 60px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .window-text {
+            position: absolute;
+            left: 16px;
+            top: 11px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</body>
+
+</html>
